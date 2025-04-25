@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edição de Produtos</title>
+    <script>
+        // Função para mostrar ou ocultar o campo "Novo Tipo" dependendo da seleção
+        function toggleNovoTipo() {
+            var tipoSelect = document.getElementById("tipo");
+            var novoTipoInput = document.getElementById("novo_tipo_input");
+
+            // Verifica se a opção "Novo Tipo" foi selecionada
+            if (tipoSelect.value === "novo_tipo") {
+                novoTipoInput.style.display = "block"; // Exibe o campo de novo tipo
+            } else {
+                novoTipoInput.style.display = "none"; // Oculta o campo de novo tipo
+            }
+        }
+
+        // Função para mostrar ou ocultar o campo "Nova Categoria" dependendo da seleção
+        function toggleNovaCategoria() {
+            var categoriaSelect = document.getElementById("categoria");
+            var novaCategoriaInput = document.getElementById("nova_categoria_input");
+
+            // Verifica se a opção "Categoria Nova" foi selecionada
+            if (categoriaSelect.value === "nova_categoria") {
+                novaCategoriaInput.style.display = "block"; // Exibe o campo de nova categoria
+            } else {
+                novaCategoriaInput.style.display = "none"; // Oculta o campo de nova categoria
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Edição de Produtos</h1>
+    <a href="paineladmin.html">
+        <button>Voltar</button>
+    </a>
+    <br><br>
+    <form method="POST" action="processa_edicao.php">
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" name="codigo" placeholder="Digite o código do produto" value="12345" required><br><br>
+
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao" placeholder="Digite a descrição do produto" value="Vela Aromática" required><br><br>
+
+        <label for="tipo">Tipo:</label>
+        <select id="tipo" name="tipo" required onchange="toggleNovoTipo()">
+            <option value="">Selecione um Tipo</option>
+            <option value="aroma" selected>Aroma</option>
+            <option value="objeto">Objeto</option>
+            <option value="novo_tipo">Novo Tipo</option>
+        </select><br><br>
+
+        <label for="data_validade">Data de Validade:</label>
+        <input type="date" id="data_validade" name="data_validade" placeholder="Selecione a data de validade" value="2025-12-31"><br><br>
+
+        <label for="categoria">Categoria:</label>
+        <select id="categoria" name="categoria" required onchange="toggleNovaCategoria()">
+            <option value="">Selecione uma Categoria</option>
+            <option value="vela">Vela</option>
+            <option value="sabonete">Sabonete</option>
+            <option value="acessorios">Acessórios</option>
+            <option value="aromatizante">Aromatizante</option>
+            <option value="oleo">Óleo Essencial</option>
+            <option value="nova_categoria">Categoria Nova</option>
+        </select><br><br>
+
+        <div id="nova_categoria_input" style="display:none;">
+            <label for="nova_categoria">Nome da Nova Categoria:</label>
+            <input type="text" id="nova_categoria" name="nova_categoria" placeholder="Digite o nome da nova categoria"><br><br>
+        </div>
+
+        <div id="novo_tipo_input" style="display:none;">
+            <label for="novo_tipo">Nome do Novo Tipo:</label>
+            <input type="text" id="novo_tipo" name="novo_tipo" placeholder="Digite o nome do novo tipo"><br><br>
+        </div>
+
+        <label for="estoque">Unidades:</label>
+        <input type="number" id="estoque" name="estoque" placeholder="Informe a quantidade em estoque" value="50" required><br><br>
+
+        <label for="preco">Preço:</label>
+        <input type="number" id="preco" name="preco" placeholder="Informe o preço do produto" value="15.99" required step="0.01" min="0"><br><br>
+
+        <!-- Seção de fornecedor -->
+        <div id="fornecedor_section">
+            <h3>Fornecedor:</h3>
+            <label for="fornecedor">Nome:</label>
+            <input type="text" id="fornecedor" name="fornecedor" placeholder="Digite o nome do fornecedor" value="Fornecedor Exemplo" required><br><br>
+
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco" name="endereco" placeholder="Digite o endereço do fornecedor" ><br><br>
+
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" name="cidade" placeholder="Digite a cidade"><br><br>
+
+            <label for="cep">CEP:</label>
+            <input type="text" id="cep" name="cep" placeholder="Digite o CEP" ><br><br>
+
+            <label for="numero">Número:</label>
+            <input type="text" id="numero" name="numero" placeholder="Número do endereço"><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Email do fornecedor"><br><br>
+        </div>
+
+        <button type="submit">Salvar</button>
+        <button type="button" onclick="alert('Produto excluído!');">Excluir</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Fragrâncias</title>
+</head>
+<body>
+    <h1>Lista de Fragrâncias</h1>
+    <a href="paineladmin.html">
+        <button>Voltar</button>
+    </a>
+    <br><br>
+
+    <form action="listar_produtos.php" method="GET">
+        <!-- Fragrância -->
+        <label for="tipo">Fragrância:</label>
+        <input type="text" id="tipo" name="tipo" placeholder="Ex: lavanda, canela, floral"><br><br>
+
+        <!-- Categoria -->
+        <label for="categoria">Categoria:</label>
+        <select id="categoria" name="categoria">
+            <option value="">Todas</option>
+            <option value="vela">Vela</option>
+            <option value="sabonete">Sabonete</option>
+            <option value="acessorios">Acessórios</option>
+            <option value="aromatizante">Aromatizante</option>
+            <option value="oleo">Óleo essencial</option>
+        </select><br><br>
+
+        <!-- Data de Entrada -->
+        <label for="data_entrada_inicio">Entrada entre:</label>
+        <input type="date" id="data_entrada_inicio" name="data_entrada_inicio">
+        e
+        <input type="date" id="data_entrada_fim" name="data_entrada_fim"><br><br>
+
+        <!-- Data de Saída -->
+        <label for="data_saida_inicio">Saída entre:</label>
+        <input type="date" id="data_saida_inicio" name="data_saida_inicio">
+        e
+        <input type="date" id="data_saida_fim" name="data_saida_fim"><br><br>
+
+        <!-- Quantidade Entrada -->
+        <label for="quantidade_entrada_min">Quantidade Entrou (mín):</label>
+        <input type="number" id="quantidade_entrada_min" name="quantidade_entrada_min" placeholder="Ex: 10"><br><br>
+
+        <!-- Quantidade Saída -->
+        <label for="quantidade_saida_min">Quantidade Saiu (mín):</label>
+        <input type="number" id="quantidade_saida_min" name="quantidade_saida_min" placeholder="Ex: 5"><br><br>
+
+        <!-- Estoque -->
+        <label for="estoque_min">Estoque maior que:</label>
+        <input type="number" id="estoque_min" name="estoque_min" placeholder="Ex: 15"><br><br>
+
+        <!-- Fornecedor -->
+        <label for="fornecedor">Fornecedor:</label>
+        <input type="text" id="fornecedor" name="fornecedor" placeholder="Nome do fornecedor"><br><br>
+
+        <input type="submit" value="Filtrar informações">
+    </form>
+
+    <h2>Ou</h2>
+
+    <form action="listar_produtos.php" method="GET">
+        <input type="submit" value="Ver tudo">
+    </form>
+</body>
+</html>

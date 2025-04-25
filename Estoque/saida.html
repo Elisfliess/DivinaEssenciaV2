@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saída de estoque</title>
+</head>
+<body>
+    <h1>Saída de estoque</h1>
+    <a href="paineladmin.html">
+        <button>Voltar</button>
+    </a>
+    <br><br>
+
+    <form action="processar_saida.php" method="POST">
+        <label for="produto">Produto:</label>
+        <select id="produto" name="produto" required>
+            <option value="">Selecione um Produto</option>
+            <!-- Os itens serão inseridos aqui pelo JS -->
+        </select><br><br>
+
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao" placeholder="Digite uma breve descrição do que saiu" required><br><br>
+
+        <label for="quantidade">Quantidade de Saída:</label>
+        <input type="number" id="quantidade" name="quantidade" required><br><br>
+
+        <label for="data_saida">Data da Saída:</label>
+        <input type="date" id="data_saida" name="data_saida" required><br><br>
+
+        <input type="submit" value="Registrar Saída">
+    </form>
+
+    <script>
+        // Simulação dos produtos cadastrados no banco
+        const produtosCadastrados = [
+            'Vela aromatizada',
+            'Óleo essencial',
+            'Aromatizante de Ambiente',
+            'Acessórios',
+            'Sabonetes',
+        ];
+
+        const selectProduto = document.getElementById('produto');
+
+        produtosCadastrados.forEach(produto => {
+            const option = document.createElement('option');
+            option.value = produto.toLowerCase().replaceAll(' ', '_');
+            option.textContent = produto;
+            selectProduto.appendChild(option);
+        });
+    </script>
+</body>
+</html>
