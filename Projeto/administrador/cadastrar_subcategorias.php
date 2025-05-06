@@ -16,29 +16,23 @@ if (!isset($_SESSION['admin_logado'])) {
 
 // Bloco que será executado quando o formulário for submetido.
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Pegando os valores do POST.
-    $subcategoria = $_POST['subcategoria'];
+    $idcategoria = $_POST['idcategoria'];
     $nome = $_POST['nome'];
 
-    // Inserindo administrador no banco.
     try {
-        $sql = "INSERT INTO subcategoria (id_categoria, nome) VALUES (:subcategoria, :nome);";
+        $sql = "INSERT INTO subcategoria (id_categoria, nome) VALUES (:idcategoria, :nome);";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':subcategoria', $subcategoria, PDO::PARAM_INT);
-        $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);        
-        
+        $stmt->bindParam(':idcategoria', $idcategoria, PDO::PARAM_INT);
+        $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
+        $stmt->execute();
 
-        $stmt->execute(); // Adicionado para executar a instrução
-
-        // Pegando o ID do administrador inserido.
         $sub_id = $pdo->lastInsertId();
-
-        
-        echo "<p style='color:green;'>Subcategoria cadastrado com sucesso! ID: " . $sub_id . "</p>";
+        echo "<p style='color:green;'>Subcategoria cadastrada com sucesso! ID: " . $sub_id . "</p>";
     } catch (PDOException $e) {
         echo "<p style='color:red;'>Erro ao cadastrar Subcategoria: " . $e->getMessage() . "</p>";
     }
 }
+
 ?>
 
 <!-- Início do código HTML -->
@@ -51,10 +45,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 <h2>Cadastrar Subcategoria</h2>
-<form action="" method="post" enctype="multipart/form-data">
-    <!-- Campos do formulário para inserir informações do administrador -->
-    <label for="idcategoria">IDcategoria:</label>
-    <input type="number" name="subcategoria" id="subcategoria" required>
+    <form action="" method="post" enctype="multipart/form-data">
+        <!-- Campos do formulário para inserir informações do administrador -->
+        <label for="idcategoria">Categoria:</label>
+    <select name="idcategoria" id="idcategoria" required>
+        <option value="">Selecione a categoria</option>
+        <?php
+        $stmt = $pdo->query("SELECT id_categoria, nome FROM categoria");
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<option value='{$row['id_categoria']}'>{$row['nome']}</option>";
+        }
+        ?>
+    </select><br>
     <p>
     <label for="nome">Nome:</label>
     <input type="text" name="nome" id="nome" required>
@@ -69,6 +71,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <a href="painel_admin.php">Voltar ao Painel do Administrador</a>
     <br>
     <a href="listar_subcategorias.php">Listar Subcategoria</a>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const nomeInput = document.getElementById("nome");
+
+        nomeInput.addEventListener("input", function() {
+            // Remove caracteres que não sejam letras (incluindo acentuação) ou espaço
+            this.value = this.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '');
+
+            // Converte tudo para maiúsculas
+            this.value = this.value.toUpperCase();
+        });
+    });
+</script>
 
 </form>
 </body>

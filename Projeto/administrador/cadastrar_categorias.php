@@ -15,6 +15,27 @@ if (!isset($_SESSION['admin_logado'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Pegando os valores do POST.
     $nome = $_POST['nome'];
+ // Validação: campo obrigatório
+ if (empty($nome)) {
+    echo "<p style='color:red;'>O nome da categoria é obrigatório.</p>";
+    exit();
+}
+
+// Validação: comprimento mínimo e máximo
+if (strlen($nome) < 2 || strlen($nome) > 50) {
+    echo "<p style='color:red;'>O nome da categoria deve ter entre 2 e 50 caracteres.</p>";
+    exit();
+}
+
+// Verifica se a categoria já existe (case insensitive)
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM categoria WHERE LOWER(nome) = LOWER(:nome)");
+$stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
+$stmt->execute();
+
+if ($stmt->fetchColumn() > 0) {
+    echo "<p style='color:red;'>Esta categoria já está cadastrada.</p>";
+    exit();
+}
 
     // Inserindo categoria no banco.
     try {

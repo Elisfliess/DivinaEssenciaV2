@@ -30,9 +30,10 @@ if (!isset($_SESSION['admin_logado'])) {
     <a href="listar_subcategorias.php">
         <button>Listar Subcategorias</button>
     </a>
-    <br><br>
+<br><br>
     <a href="../E-commerce/index.html">
         <button>Logout</button>
     </a>
+
 </body>
 </html>

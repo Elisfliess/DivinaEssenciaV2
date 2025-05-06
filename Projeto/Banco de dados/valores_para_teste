@@ -4,6 +4,7 @@ USE projeto;
 
 -- Inserir administradores
 INSERT INTO administrador (adm_nome, adm_email, adm_senha, adm_ativo) VALUES
+('admin teste', 'teste@admin.com', '12345', 1), 
 ('teste admin', 'teste@divina.com', '1234', 1), 
 ('Isabella Avelina', 'isabella@divina.com', '1234', 1),
 ('Isadora Burgos', 'isadora@divina.com', '1234', 1),

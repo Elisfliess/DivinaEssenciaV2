@@ -45,7 +45,7 @@ if(isset($_SESSION['mensagem_erro'])) {
           <img src="../img/login.png" alt="Ícone de login">
           <div class="container-login">
               <h6>Minha Conta</h6>
-              <a href="../administrador/login.php">Entrar /</a><a href="../administrador/cadastrar_user_admin.php"> Cadastrar</a> 
+              <a href="../administrador/login.php">Entrar /</a><a href="../E-commerce/cadastrar.html"> Cadastrar</a> 
           </div>
           <div class="carrinho">
               <img src="../img/carinho.png" alt="Carrinho de compras">
@@ -81,7 +81,9 @@ if(isset($_SESSION['mensagem_erro'])) {
         <br> 
         <label for="senha">Senha:</label>
         <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
-        <br> 
+        <br>
+        <input type="checkbox" id="mostrar_senha" onclick="mostrarSenha()"> Mostrar senha
+
         <p>Não possui login? Se <a href="cadastrar.html">cadastre</a>!</p>
         <input type="submit" value="Entrar">
         
@@ -129,19 +131,31 @@ if(isset($_SESSION['mensagem_erro'])) {
 </div>
 
 <footer>
-  <p>Todos Direitos Reservados a Isadora Burgos e Isabella Avelina - 2024@</p>
+  <p>Todos Direitos Reservados a Isabella Avelina, Isadora Burgos, Lise Fliess e Pedro Almeida - 2025@</p>
 </footer>
 <!--Fecha rodapé-->
 
 <!--Começa ícone fixo de WhatsApp-->
 <div class="whats">
-  <a href="https://wa.me/5511913119603" target="_blank">
+  <a href="https://wa.me/" target="_blank">
     <img src="../img/wppsemfundo.png" width="70" alt="whatsapp" title="Fale conosco pelo whatsapp">
   </a>
 </div>
 <!--Fecha ícone fixo de WhatsApp-->
 
+<script>
+function mostrarSenha() {
+    var inputSenha = document.getElementById("senha");
+    if (inputSenha.type === "password") {
+        inputSenha.type = "text";
+    } else {
+        inputSenha.type = "password";
+    }
+}
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 
 </body>
 </html>

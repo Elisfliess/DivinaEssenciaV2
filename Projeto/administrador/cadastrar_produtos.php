@@ -25,7 +25,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $estoque = $_POST['estoque'];
     $preco = $_POST['preco'];
 
+// Valida campos obrigatórios
+if (empty($nome) || empty($imagem) || empty($fornecedor) || empty($descricao) || empty($subcategoria) || $estoque === "" || $preco === "") {
+    echo "<p style='color:red;'>Todos os campos são obrigatórios.</p>";
+    exit();
+}
 
+// Validação de preço e estoque
+if (!is_numeric($preco) || $preco <= 0) {
+    echo "<p style='color:red;'>Preço deve ser um valor numérico positivo.</p>";
+    exit();
+}
+
+if (!is_numeric($estoque) || $estoque < 0) {
+    echo "<p style='color:red;'>Estoque deve ser um número inteiro igual ou maior que zero.</p>";
+    exit();
+}
+
+// Valida se fornecedor existe
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM fornecedor WHERE id_fornecedor = :id");
+$stmt->bindParam(':id', $fornecedor, PDO::PARAM_INT);
+$stmt->execute();
+if ($stmt->fetchColumn() == 0) {
+    echo "<p style='color:red;'>Fornecedor inválido.</p>";
+    exit();
+}
+
+// Valida se subcategoria existe
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM subcategoria WHERE id_sub = :id");
+$stmt->bindParam(':id', $subcategoria, PDO::PARAM_INT);
+$stmt->execute();
+if ($stmt->fetchColumn() == 0) {
+    echo "<p style='color:red;'>Subcategoria inválida.</p>";
+    exit();
+}
 
 
     // Inserindo administrador no banco.
@@ -70,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <form action="" method="post" enctype="multipart/form-data">
     <!-- Campos do formulário para inserir informações do administrador -->
     <label for="nome">Nome:</label>
-    <input type="text" name="nome" id="nome" required>
+    <input type="text" name="nome" id="nome" placeholder="Vela" required>
     <p>
 
     <label for="imagem">imagem:</label>
@@ -78,31 +111,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <p>
 
     <label for="fornecedor">Fornecedor:</label>
-<select name="fornecedor" id="fornecedor" required>
-    <option value="">Selecione um fornecedor</option>
-    <?php
-    $stmt = $pdo->query("SELECT id_fornecedor, nome FROM fornecedor");
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        echo "<option value='{$row['id_fornecedor']}'>{$row['nome']}</option>";
-    }
-    ?>
-</select><br>
-
+    <select name="fornecedor" id="fornecedor" required>
+        <option value="">Selecione um fornecedor</option>
+        <?php
+        $stmt = $pdo->query("SELECT id_fornecedor, nome FROM fornecedor");
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<option value='{$row['id_fornecedor']}'>{$row['nome']}</option>";
+        }
+        ?>
+    </select><br>
+    <p>
 
     <label for="descricao">Decrição:</label>
-    <input type="text" name="descricao" id="descricao" required><br>
+    <input type="text" name="descricao" id="descricao" placeholder="15g" required><br>
     <p>
 
     <label for="subcategoria">Subcategoria:</label>
-    <input type="number" name="subcategoria" id="subcategoria" required><br>
+    <select name="subcategoria" id="subcategoria" required>
+    <option value="">Selecione uma subcategoria</option>
+    <?php
+    $stmt = $pdo->query("SELECT id_sub, nome FROM subcategoria");
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo "<option value='{$row['id_sub']}'>{$row['nome']}</option>";
+    }
+    ?>
+    </select><br>
     <p>
 
     <label for="estoque">Estoque:</label>
-    <input type="text" name="estoque" id="estoque" required><br>
+    <input type="text" name="estoque" id="estoque" placeholder="50 unidades" required><br>
     <p>
     
     <label for="preco">Preço:</label>
-    <input type="number" name="preco" id="preco" required><br>
+    <input type="number" name="preco" id="preco" placeholder="R$ 40,00" required><br>
     <p>
     
     <p>
@@ -113,6 +154,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <a href="painel_admin.php">Voltar ao Painel do Administrador</a>
     <br>
     <a href="listar_produtos.php">Listar Produto</a>
+
+    <script>
+  
+   
+</script>
 
 </form>
 </body>
