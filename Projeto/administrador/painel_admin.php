@@ -7,33 +7,55 @@ if (!isset($_SESSION['admin_logado'])) {
     exit();
 }
 ?>
+
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Painel do Administrador</title>
-</head>
-<body>
-    <h2>Bem-vindo, Administrador!</h2>
-    <a href="listar_administrador.php">
-        <button>Listar Administradores</button>
-    </a>
-    <a href="listar_categorias.php">
-        <button>Listar Categorias</button>
-    </a>
-    <a href="listar_fornecedores.php">
-        <button>Listar Fornecedores</button>
-    </a>
-    <a href="listar_produtos.php">
-        <button>Listar Produtos</button>
-    </a>
-    <a href="listar_subcategorias.php">
-        <button>Listar Subcategorias</button>
-    </a>
-<br><br>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Painel</title>
+        <link rel="stylesheet" href="../css/painel.css">
+        <link rel="icon" type="image/png" href="../img/logo.png">
+    </head>
+    <body>
+    
+
+        <div class="galeria">
+            <div>
+                 <a href="listar_administrador.php">
+                <img src="../img/logo_administrador.png"  alt="Administrador">
+                </a>
+            </div>
+            
+            <div><a href="listar_categorias.php">
+                <img src="../img/logo_categorias.png" alt="Categorias">
+                </a>
+            </div>
+
+            <div>
+                 <a href="listar_fornecedores.php">
+                <img src="../img/logo_fornecedores.png" alt="Fornecedores">
+                 </a>
+            </div>
+
+            <div>
+                 <a href="listar_produtos.php">
+                <img src="../img/logo_produtos.png" alt="Produtos">
+                 </a>
+            </div>
+
+            <div>
+                 <a href="listar_subcategorias.php">
+                <img src="../img/logo_subcategorias.png" alt="Subcategorias">
+                 </a>
+            </div>
+
+        </div>
+
+
     <a href="../E-commerce/index.html">
-        <button>Logout</button>
+        <button class="logout-btn">Logout</button>
     </a>
 
-</body>
+    </body>
 </html>
