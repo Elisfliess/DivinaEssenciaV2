@@ -1,12 +1,15 @@
 
 <?php
-session_start(); // Iniciar a sessão
+session_start(); 
 
 if (!isset($_SESSION['admin_logado'])) {
     header('Location: login.php');
     exit();
 }
 ?>
+
+
+<!-- Início do código HTML -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,9 +56,10 @@ if (!isset($_SESSION['admin_logado'])) {
         </div>
 
 
-    <a href="../E-commerce/index.html">
-        <button class="logout-btn">Logout</button>
+    <a href="logout.php">
+    <button class="logout-btn">Logout</button>
     </a>
+
 
     </body>
 </html>
