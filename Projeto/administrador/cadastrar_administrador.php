@@ -58,14 +58,79 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <!-- Início do código HTML -->
+
+
+
+
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Administrador</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Cadastro de Administrador</title>
+          <link rel="stylesheet" href="../css/style.css">
+        <link rel="icon" type="image/png" href="../img/logo.png">
+    </head>
+    <body>
 
-</head>
-<body>
+
+<!-- MENU HAMBURGUER-->
+
+
+<div class="hamburguer">
+        <button class="menu-btn">&#9776;</button>
+        <img class="imglogo" src="../img/Logo.png" alt="Logo" class="logo">
+        <nav class="nav">
+            <ul>
+                <li class="category"><a href="#">ADMINISTRADOR</a>
+                    <ul class="submenu">
+                        <li><a href="./listar_administrador.php">LISTAR</a></li>
+                        <li><a href="./cadastrar_administrador.php">CADASTRAR</a></li>
+                    </ul>
+                </li>
+                <li class="category"><a href="#">CATEGORIA</a>
+                    <ul class="submenu">
+                        <li><a href="listar_categorias.php">LISTAR</a></li>
+                        <li><a href="./cadastrar_categorias.php">CADASTRAR</a></li>
+                       
+                    </ul>
+                </li>
+                <li class="category"><a href="#">FORNECEDOR</a>
+                    <ul class="submenu">
+                        <li><a href="listar_fornecedores.php">LISTAR</a></li>
+                        <li><a href="./cadastrar_fornecedores.php">CADASTRAR</a></li>
+                       
+                    </ul>
+                </li>
+                <li class="category"><a href="#">PRODUTO</a>
+                    <ul class="submenu">
+                        <li><a href="listar_produtos.php">LISTAR</a></li>
+                        <li><a href="./cadastrar_produtos.php">CADASTRAR</a></li>
+                        
+                    </ul>
+                </li>
+                <li class="category"><a href="#">SUBCATEGORIA</a>
+                    <ul class="submenu">
+                        <li><a href="listar_subcategorias.php">LISTAR</a></li>
+                        <li><a href="./cadastrar_subcategorias.php">CADASTRAR</a></li>
+                        
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector('.menu-btn');
+        const nav = document.querySelector('.nav');
+
+        menuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+    </script>
+
+
+
 <h2>Cadastrar Administrador</h2>
 <form action="" method="post" enctype="multipart/form-data">
     <label for="nome">Nome:</label>
