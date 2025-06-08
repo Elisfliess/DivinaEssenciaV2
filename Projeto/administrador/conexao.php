@@ -8,7 +8,6 @@ $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
-//criando a conexão com o banco de dados//
 try{
     $pdo = new PDO($dsn, $user, $pass);
     echo "conexão com o banco de dados foi bem sucedida";
