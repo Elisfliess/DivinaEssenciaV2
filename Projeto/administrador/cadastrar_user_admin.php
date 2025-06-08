@@ -1,12 +1,8 @@
 <?php
-// Inicia a sessão para gerenciamento do usuário.
 session_start();
 
-// Importa a configuração de conexão com o banco de dados.
-//require_once('conexao.php');
 require_once('conexao_azure.php');
 
-// Verifica se o administrador está logado.
 if (!isset($_SESSION['admin_logado'])) {
     header("Location:login.php");
     exit();
@@ -14,15 +10,11 @@ if (!isset($_SESSION['admin_logado'])) {
 
 
 
-// Bloco que será executado quando o formulário for submetido.
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Pegando os valores do POST.
     $nome = $_POST['nome'];
     $email = $_POST['email'];
     $senha = $_POST['senha'];
-    $ativo = isset($_POST['ativo']) ? 1 : 0; //esse comando é uma maneira concisa de dizer: "Se o campo ativo do formulário foi marcado, defina $ativo como 1. Caso contrário, defina como 0." Isso é útil para manipular checkboxes em formulários, pois eles só são incluídos nos dados do POST se estiverem marcados. Portanto, essa abordagem permite que você traduza a presença ou ausência do checkbox marcado em um valor booleano representado por 1 ou 0, respectivamente
-    
-    // Inserindo administrador no banco.
+    $ativo = isset($_POST['ativo']) ? 1 : 0; 
     try {
         $sql = "INSERT INTO ADMINISTRADOR (ADM_NOME, ADM_EMAIL, ADM_SENHA,ADM_ATIVO) VALUES (:nome, :email, :senha, :ativo);";
         $stmt = $pdo->prepare($sql);
@@ -31,9 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':senha', $senha, PDO::PARAM_STR);
         $stmt->bindParam(':ativo', $ativo, PDO::PARAM_INT); 
 
-        $stmt->execute(); // Adicionado para executar a instrução
-
-        // Pegando o ID do administrador inserido.
+        $stmt->execute(); 
         $adm_id = $pdo->lastInsertId();
 
         
