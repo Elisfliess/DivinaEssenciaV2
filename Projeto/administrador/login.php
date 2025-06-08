@@ -1,17 +1,11 @@
-
 <?php
-
-//nesse arquivo, através de um formulário html, coletamos os dados de login do administrador que está querendo acessar o sistema.
-//Uma vez feito isso, enviamos via método post desse formulário, os dados para o arquivo processa_login.php
-//No final do arquivo html, capturamos e escrevemos um possível erro que possa ter havido no login do usuário que foi processado (e enviado) no arquivo processa_login.php
-
 
 session_start();
 
-// Se a variável de sessão com a mensagem de erro estiver definida
-if(isset($_SESSION['mensagem_erro'])) {
-    echo '<p>' . $_SESSION['mensagem_erro'] . '</p>'; // Exibe a mensagem de erro
-    unset($_SESSION['mensagem_erro']); // Descarta a variável de sessão
+$mensagemErro = '';
+if (isset($_SESSION['mensagem_erro'])) {
+    $mensagemErro = $_SESSION['mensagem_erro'];
+    unset($_SESSION['mensagem_erro']); // Limpa após exibir
 }
 ?>
 
@@ -73,22 +67,37 @@ if(isset($_SESSION['mensagem_erro'])) {
 <!--Fecha menu-->
 
 <!--Começa campo de login-->
+<!-- Começa campo de login -->
 <div class="login">
     <h1>Login</h1>
+
+    <!-- Mensagem de erro, se houver -->
+    <?php if (!empty($mensagemErro)): ?>
+        <div style="color: red; font-weight: bold; text-align: center; margin-bottom: 10px;">
+            <?= htmlspecialchars($mensagemErro) ?>
+        </div>
+    <?php endif; ?>
+
     <form class="form-control" action="processa_login.php" method="post">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" placeholder="Digite seu email" required>
-        <br> 
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" >
+        <br> <br>
+        <!-- senha -->
+       <label for="senha">Senha:</label>
+       <div class="input-group">
+    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+    <span class="eye" onclick="alternarSenha()">
+        <i class="fa-solid fa-eye" id="iconeOlho"></i>
+    </span>
+</div>
         <br>
-        <input type="checkbox" id="mostrar_senha" onclick="mostrarSenha()"> Mostrar senha
+    <!-- senha -->
 
         <p>Não possui login? Se <a href="cadastrar.html">cadastre</a>!</p>
         <input type="submit" value="Entrar">
-
     </form>
 </div>
+
 <!--Fecha campo de login-->
 
 <!--Começa rodapé-->
@@ -136,19 +145,26 @@ if(isset($_SESSION['mensagem_erro'])) {
 </div>
 <!--Fecha ícone fixo de WhatsApp-->
 
+<!--Toggle Password-->
 <script>
-function mostrarSenha() {
-    var inputSenha = document.getElementById("senha");
-    if (inputSenha.type === "password") {
-        inputSenha.type = "text";
+function alternarSenha() {
+    const senhaInput = document.getElementById("senha");
+    const icone = document.getElementById("iconeOlho");
+
+    if (senhaInput.type === "password") {
+        senhaInput.type = "text";
+        icone.classList.remove("fa-eye");
+        icone.classList.add("fa-eye-slash");
     } else {
-        inputSenha.type = "password";
+        senhaInput.type = "password";
+        icone.classList.remove("fa-eye-slash");
+        icone.classList.add("fa-eye");
     }
 }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </body>
 </html>
